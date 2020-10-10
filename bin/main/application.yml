@@ -1,0 +1,53 @@
+---
+# Defines list of regions.
+# Every region contains name, code and list of countries, which is defined
+# as list of slugs 
+regions:
+  middle-east:
+    name: Middle East
+    countries:
+      - saudi-arabia
+      - bahrain
+      # - united-arab-emirates
+      # - egypt
+      # - jordan
+      # - iraq
+      # - iran
+      # - israel
+      # - kuwait
+      # - lebanon
+      # - oman
+      # - palestine
+      # - qatar
+      # - syria
+      # - turkey
+      # - yemen
+  eu: 
+    name: European Union
+    countries:
+      - austria
+      - belgium
+      # - bulgaria
+      # - croatia
+      # - cyprus
+      # - czech-republic
+      # - denmark
+      # - estonia
+      # - finland
+      # - france
+      # - germany
+      # - greece
+      # - hungary
+      # - ireland
+      # - italy
+      # - latvia
+      # - lithuania
+      # - luxembourg
+      # - malta
+      # - poland
+      # - portugal
+      # - romania
+      # - slovakia
+      # - slovenia
+      # - spain
+      # - sweden
