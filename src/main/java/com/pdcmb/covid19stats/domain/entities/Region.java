@@ -1,4 +1,4 @@
-package com.pdcmb.covid19stats.domain;
+package com.pdcmb.covid19stats.domain.entities;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,26 +1,45 @@
-package com.pdcmb.covid19stats.domain;
+package com.pdcmb.covid19stats.domain.entities;
 
 import java.time.Instant;
 import java.util.Objects;
 
 /**
- * Domain entity that contains confirmed cases, deaths, recovered and active
- * cases in given day, all data are cumulative.
+ * Domain value object that holds data 
  * 
  * @author Mateusz Ziomek
  */
-public class Day {
+public class Data {
 
+
+    /**
+     * Date rappresented by {@link Instant} instance. ISO 8601 compatible 
+     */
     private Instant date;
+
+    /**
+     * Confirmed cases in that day
+     */
     private int confirmed;
+
+    /**
+     * 
+     */
     private int deaths;
+
+    /**
+     * 
+     */
     private int recovered;
+
+    /**
+     * 
+     */
     private int active;
     
 
-    public Day() {}
+    public Data() {}
 
-    public Day(Instant date, int confirmed, int deaths, int recovered, int active) {
+    public Data(Instant date, int confirmed, int deaths, int recovered, int active) {
         this.date = date;
         this.confirmed = confirmed;
         this.deaths = deaths;
@@ -90,41 +109,46 @@ public class Day {
      * @param date 
      * @return <b>Day</b> 
      */
-    public Day date(Instant date) {
+    public Data date(Instant date) {
         this.date = date;
         return this;
     }
 
-    public Day confirmed(int confirmed) {
+    public Data confirmed(int confirmed) {
         this.confirmed = confirmed;
         return this;
     }
 
-    public Day deaths(int deaths) {
+    public Data deaths(int deaths) {
         this.deaths = deaths;
         return this;
     }
 
-    public Day recovered(int recovered) {
+    public Data recovered(int recovered) {
         this.recovered = recovered;
         return this;
     }
 
-    public Day active(int active) {
+    public Data active(int active) {
         this.active = active;
         return this;
     }
 
-
+    public void add(Data data){
+        this.confirmed = this.confirmed + data.confirmed;
+        this.deaths = this.deaths + data.deaths;
+        this.recovered = this.recovered + data.recovered;
+        this.active = this.active + data.active;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof Day)) {
+        if (!(o instanceof Data)) {
             return false;
         }
-        Day day = (Day) o;
+        Data day = (Data) o;
         return confirmed == day.confirmed && deaths == day.deaths && recovered == day.recovered && active == day.active;
     }
 

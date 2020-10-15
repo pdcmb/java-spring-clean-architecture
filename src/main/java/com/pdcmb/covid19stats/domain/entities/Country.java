@@ -1,6 +1,6 @@
-package com.pdcmb.covid19stats.domain;
+package com.pdcmb.covid19stats.domain.entities;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -11,9 +11,20 @@ import java.util.Objects;
  */
 public class Country {
 
+    /**
+     * Country code
+     */
     private String countryCode;
+
+    /**
+     * Country name
+     */
     private String name;
-    private List<Day> days;
+
+    /**
+     * Dataset re
+     */
+    private ArrayList<Data> data;
 
     /**
      * Default empty constructor
@@ -25,12 +36,12 @@ public class Country {
      * 
      * @param String Country code
      * @param String Country name
-     * @param List List of data for each day
+     * @param List List containing data for each day
      */
-    public Country(String countryCode, String name, List<Day> days) {
+    public Country(String countryCode, String name, ArrayList<Data> data) {
         this.countryCode = countryCode;
         this.name = name;
-        this.days = days;
+        this.data = data;
     }
 
     /**
@@ -75,17 +86,17 @@ public class Country {
      * 
      * @return <b>Collection</b> List of data for every day
      */
-    public List<Day> getDays() {
-        return this.days;
+    public ArrayList<Data> getData() {
+        return this.data;
     }
 
     /**
      * Sets list containing all relevant data 
      * 
-     * @param List List containing data for each day
+     * @param List List containing dataset for this country
      */
-    public void setDays(List<Day> days) {
-        this.days = days;
+    public void setData(ArrayList<Data> data) {
+        this.data = data;
     }
 
     /**
@@ -111,13 +122,13 @@ public class Country {
     }
 
     /**
-     * Fluent setter which sets List of days
+     * Fluent setter which sets Data for this country
      * 
      * @param days
      * @return <b>Country</b> Current instance of Country class
      */
-    public Country days(List<Day> days) {
-        this.days = days;
+    public Country data(ArrayList<Data> data) {
+        this.data = data;
         return this;
     }
 
@@ -130,12 +141,12 @@ public class Country {
             return false;
         }
         Country country = (Country) o;
-        return Objects.equals(countryCode, country.countryCode) && Objects.equals(name, country.name) && Objects.equals(days, country.days);
+        return Objects.equals(countryCode, country.countryCode) && Objects.equals(name, country.name) && Objects.equals(data, country.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(countryCode, name, days);
+        return Objects.hash(countryCode, name, data);
     }
 
     @Override
@@ -143,9 +154,11 @@ public class Country {
         return "{" +
             " countryCode='" + getCountryCode() + "'" +
             ", name='" + getName() + "'" +
-            ", days='" + getDays() + "'" +
+            ", data='" + getData() + "'" +
             "}";
     }
+
+
 
  
     

@@ -1,15 +1,7 @@
-package com.pdcmb.covid19stats.domain.usecase.base;
+package com.pdcmb.covid19stats.domain.usecases.base;
 
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
-
-import reactor.core.Disposable;
-import reactor.core.Disposables;
-import reactor.core.Disposable.Composite;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-import reactor.function.Consumer;
 
 /**
  * Classe astratta di un Use Case (o Interactor) e rappressenta un'unità di caso
@@ -20,10 +12,10 @@ import reactor.function.Consumer;
  * e pubblichera il risultato attraverso [DisposableSingleObserver] passato come
  * parametro. Il valore di ritorno è emesso tramite [Single]
  *
- * @param <P> Il parametro (input) d'ingresso
- * @param <R> Il valore di ritorno (output)
+ * @param <I> Il parametro (input) d'ingresso
+ * @param <O> Il valore di ritorno (output)
  */
-public abstract class BaseFluxUseCase<P, R> {
+public abstract class BaseMonoUseCase<I extends IRequest, O extends IResponse> {
 
     /**
      * Creates [Publisher] used by execute method
@@ -31,7 +23,7 @@ public abstract class BaseFluxUseCase<P, R> {
      * @param params
      * @return
      */
-    protected abstract Flux<R> createPublisher(P params);
+    protected abstract Mono<O> createPublisher(I params);
 
     /**
      * Executes Use Case and subscribe with given [Subscriber] 
@@ -39,9 +31,11 @@ public abstract class BaseFluxUseCase<P, R> {
      * @param subscriber
      * @param params Parameter to be passed to Use Case
      */
-    public Flux<R> execute(P params){
+    public Mono<O> execute(I params){
         return createPublisher(params)
                     .subscribeOn(Schedulers.elastic());
     }
+
+
 
 }
