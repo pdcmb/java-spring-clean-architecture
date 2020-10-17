@@ -99,6 +99,7 @@ public class GetRegionData extends BaseFluxUseCase<GetRegionData.Request, GetReg
 
         private String regionCode;
         private Filter filter;
+        private Boolean latest;
 
         public Request(Filter filter, String regionCode){
             this.filter = filter;

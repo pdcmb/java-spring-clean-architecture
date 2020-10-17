@@ -1,6 +1,8 @@
-# Getting Started
+# Spring Clean Architecture
 
+## Description
 
+This simple java application allows to retrevie data on Coronavirus in different regions of the world. It provides simple REST(ish) [^2] api interface. Data are retrieved from [Covid19api] and are aggregated by region.
 
 ## Usage 
 
@@ -27,9 +29,6 @@ Parameter | Descritpion | Possible values |
 
 ### Filters
 
-filter | description | 
------------- | ------------- | 
-:name | "all", "eu", "middle-east"  | 
 
 ## Structure
 
@@ -59,14 +58,17 @@ According to Clean Architecture principles by Uncle Bob,  this component should 
 * [Spring Framework] - Framework for creating production-grade applications that run on JVM
 * [Spring Boot] - Tool that makes developing web application and microservices with Spring Framework faster and easier through 
 * [Reactor] - Tool for building a stand-alone Spring-based application with minimal or zero configurations
+* [Covid19api] - A free API for data on the Coronavirus
 
 ## To do
 
 
   [^1]: [The Clean Architecture] by Uncle Bob.
+  [^2]: Obviously it is not fully RESTfull
 
   [The Clean Architecture]: https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
   [Spring Framework]: https://spring.io/
   [Spring Boot]: https://spring.io/projects/spring-boot
   [Reactor]: https://projectreactor.io/ 
+  [Covid19api]: https://covid19api.com/
 

@@ -2,7 +2,6 @@ package com.pdcmb.covid19stats.configuration;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties
 public class RegionsConfig {
-
-    private Map<String, Region> regions;
 
     public static class Region{
 
@@ -43,42 +40,10 @@ public class RegionsConfig {
             this.countries = countries;
         }
     
-        public Region name(String name) {
-            this.name = name;
-            return this;
-        }
-    
-        public Region countries(List<String> countries) {
-            this.countries = countries;
-            return this;
-        }
-    
-        @Override
-        public boolean equals(Object o) {
-            if (o == this)
-                return true;
-            if (!(o instanceof Region)) {
-                return false;
-            }
-            Region region = (Region) o;
-            return Objects.equals(name, region.name) && Objects.equals(countries, region.countries);
-        }
-    
-        @Override
-        public int hashCode() {
-            return Objects.hash(name, countries);
-        }
-    
-        @Override
-        public String toString() {
-            return "{" +
-                " name='" + getName() + "'" +
-                ", countries='" + getCountries() + "'" +
-                "}";
-        }
-    
         
     }
+
+    private Map<String, Region> regions;
 
     public RegionsConfig() {}
 
@@ -92,34 +57,6 @@ public class RegionsConfig {
 
     public void setRegions(Map<String,Region> regions) {
         this.regions = regions;
-    }
-
-    public RegionsConfig regions(Map<String,Region> regions) {
-        this.regions = regions;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof RegionsConfig)) {
-            return false;
-        }
-        RegionsConfig regionsConfig = (RegionsConfig) o;
-        return Objects.equals(regions, regionsConfig.regions);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(regions);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " regions='" + getRegions() + "'" +
-            "}";
     }
    
 }

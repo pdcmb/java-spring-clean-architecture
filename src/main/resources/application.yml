@@ -1,4 +1,6 @@
 ---
+
+  
 # Enable pretty json formatting
 spring:
   jackson:
