@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Spring Clean Architecture
 
 ## Description
@@ -72,3 +73,6 @@ According to Clean Architecture principles by Uncle Bob,  this component should 
   [Reactor]: https://projectreactor.io/ 
   [Covid19api]: https://covid19api.com/
 
+=======
+# java-spring-prog
+>>>>>>> 6ed71c08297821b5aa74f5b40ce8f274f69b9977
