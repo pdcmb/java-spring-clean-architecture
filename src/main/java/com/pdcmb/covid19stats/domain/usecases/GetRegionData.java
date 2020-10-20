@@ -1,8 +1,5 @@
 package com.pdcmb.covid19stats.domain.usecases;
 
-import java.util.ArrayList;
-
-import com.pdcmb.covid19stats.domain.entities.Data;
 import com.pdcmb.covid19stats.domain.entities.Filter;
 import com.pdcmb.covid19stats.domain.entities.Region;
 import com.pdcmb.covid19stats.domain.repositories.IRegionRepository;
@@ -41,29 +38,7 @@ public class GetRegionData extends BaseFluxUseCase<GetRegionData.Request, GetReg
             stream = regionRepository.getAllRegionData();
         else
             stream = regionRepository.getRegionData(request.getRegionCode());
-        return stream
-                .flatMap(region -> {
-                    return Flux.fromIterable(region.getCountries())
-                                .reduce(new ArrayList<Data>(), (data, country) ->{
-                                    if(country.getData().size() > data.size())
-                                        return country.getData();
-                                    else return data;
-                                }).flux()
-                                .flatMap(data -> {
-                                    return Flux.range(0, data.size())
-                                                .flatMap( i -> {
-                                                    return Flux.fromIterable(region.getCountries())
-                                                                .filter(country -> country.getData().size() > i )
-                                                                .reduce(new Response(region.getName(), new Data()),
-                                                                     (response, country) -> {
-                                                                        Data dayData = country.getData().get(i);
-                                                                        response.getData().setDate(dayData.getDate());
-                                                                        response.getData().add(dayData);
-                                                                        return response;
-                                                                });
-                                                });                    
-                                });                                
-        });
+        return stream.map(Response::new);
     }
 
     /**
@@ -71,22 +46,16 @@ public class GetRegionData extends BaseFluxUseCase<GetRegionData.Request, GetReg
      */
     public static class Response implements IResponse{
 
-        private String regionName;
-        private Data data;
+        private Region region;
 
         public Response(){}
 
-        public Response(String regionName, Data data){
-            this.regionName = regionName;
-            this.data = data;
+        public Response(Region region){
+            this.region = region;
         }
 
-        public String getRegionName(){
-            return this.regionName;
-        }
-
-        public Data getData(){
-            return this.data;
+        public Region getRegion(){
+            return this.region;
         }
 
     }
@@ -99,11 +68,12 @@ public class GetRegionData extends BaseFluxUseCase<GetRegionData.Request, GetReg
 
         private String regionCode;
         private Filter filter;
-        private Boolean latest;
 
-        public Request(Filter filter, String regionCode){
-            this.filter = filter;
+        public Request(){}
+
+        public Request(String regionCode, Filter filter){
             this.regionCode = regionCode;
+            this.filter = filter;
         }
 
         public String getRegionCode(){

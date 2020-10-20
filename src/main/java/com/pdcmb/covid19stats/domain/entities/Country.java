@@ -2,10 +2,11 @@ package com.pdcmb.covid19stats.domain.entities;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
- * Domain entity model that rappresents data for a 
- * single country
+ * Domain entity model that rappresents a country.
+ * It holds data set for this particular country 
  * 
  * @author Mateusz Ziomek
  */
@@ -22,7 +23,7 @@ public class Country {
     private String name;
 
     /**
-     * Dataset re
+     * Dataset for this country
      */
     private ArrayList<Data> data;
 
@@ -42,6 +43,12 @@ public class Country {
         this.countryCode = countryCode;
         this.name = name;
         this.data = data;
+    }
+
+    public void filter(Filter filter){
+        this.data = this.data.stream()
+                            .filter(filter::apply)
+                            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**

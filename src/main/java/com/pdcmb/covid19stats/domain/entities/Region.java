@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class Region {
 
+    private String regionCode;
     /**
      * Name of the region
      */
@@ -31,14 +32,24 @@ public class Region {
     /**
      * Consructor which sets all fields
      * 
+     * @param regionCode
      * @param name
      * @param countries
      */
-    public Region(String name, List<Country> countries) {
+    public Region(String regionCode, String name, List<Country> countries) {
+        this.regionCode = regionCode;
         this.name = name;
         this.countries = countries;
     }
 
+
+    public String getRegionCode(){
+        return this.regionCode;
+    }
+
+    public void setRegionCode(String regionCode){
+        this.regionCode = regionCode;
+    }
     /**
      * Returns region's name
      * 
@@ -71,6 +82,10 @@ public class Region {
         this.countries = countries;
     }
 
+    public Region regionCode(String regionCode){
+        this.regionCode = regionCode;
+        return this;
+    }
     /**
      * Fluent setter for setting region's name 
      * 

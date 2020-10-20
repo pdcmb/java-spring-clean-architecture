@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 /**
- * Domain value object that holds data 
+ * Domain value that holds data 
  * 
  * @author Mateusz Ziomek
  */
@@ -19,27 +19,27 @@ public class Data {
     /**
      * Confirmed cases in that day
      */
-    private int confirmed;
+    private Integer confirmed;
 
     /**
-     * 
+     * Number of deaths
      */
-    private int deaths;
+    private Integer deaths;
 
     /**
-     * 
+     * Number of recovered
      */
-    private int recovered;
+    private Integer recovered;
 
     /**
-     * 
+     * Number of active cases
      */
-    private int active;
+    private Integer active;
     
 
     public Data() {}
 
-    public Data(Instant date, int confirmed, int deaths, int recovered, int active) {
+    public Data(Instant date, Integer confirmed, Integer deaths, Integer recovered, Integer active) {
         this.date = date;
         this.confirmed = confirmed;
         this.deaths = deaths;
@@ -50,7 +50,7 @@ public class Data {
     /**
      * 
      * 
-     * @return
+     * @return {@link Instant} date
      */
     public Instant getDate() {
         return this.date;
@@ -67,7 +67,7 @@ public class Data {
      * 
      * @return 
      */
-    public int getConfirmed() {
+    public Integer getConfirmed() {
         return this.confirmed;
     }
 
@@ -75,31 +75,31 @@ public class Data {
      * 
      * @param confirmed
      */
-    public void setConfirmed(int confirmed) {
+    public void setConfirmed(Integer confirmed) {
         this.confirmed = confirmed;
     }
 
-    public int getDeaths() {
+    public Integer getDeaths() {
         return this.deaths;
     }
 
-    public void setDeaths(int deaths) {
+    public void setDeaths(Integer deaths) {
         this.deaths = deaths;
     }
 
-    public int getRecovered() {
+    public Integer getRecovered() {
         return this.recovered;
     }
 
-    public void setRecovered(int recovered) {
+    public void setRecovered(Integer recovered) {
         this.recovered = recovered;
     }
 
-    public int getActive() {
+    public Integer getActive() {
         return this.active;
     }
 
-    public void setActive(int active) {
+    public void setActive(Integer active) {
         this.active = active;
     }
 
@@ -114,22 +114,22 @@ public class Data {
         return this;
     }
 
-    public Data confirmed(int confirmed) {
+    public Data confirmed(Integer confirmed) {
         this.confirmed = confirmed;
         return this;
     }
 
-    public Data deaths(int deaths) {
+    public Data deaths(Integer deaths) {
         this.deaths = deaths;
         return this;
     }
 
-    public Data recovered(int recovered) {
+    public Data recovered(Integer recovered) {
         this.recovered = recovered;
         return this;
     }
 
-    public Data active(int active) {
+    public Data active(Integer active) {
         this.active = active;
         return this;
     }
