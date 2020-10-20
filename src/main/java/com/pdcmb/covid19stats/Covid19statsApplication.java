@@ -1,5 +1,12 @@
 package com.pdcmb.covid19stats;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.sql.Date;
+import java.util.List;
+
+import com.pdcmb.covid19stats.domain.entities.Data;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,9 +24,9 @@ public class Covid19statsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
+
+
 
 	@Bean
 	public WebClient getWebClient(){

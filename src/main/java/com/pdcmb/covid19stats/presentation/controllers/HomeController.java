@@ -1,21 +1,24 @@
 package com.pdcmb.covid19stats.presentation.controllers;
 
-import javax.servlet.http.HttpServletRequest;
+import java.time.Instant;
 
 import com.pdcmb.covid19stats.presentation.exceptions.ResourceNotFoundException;
+import com.pdcmb.covid19stats.presentation.models.RouteResponseModel;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Component
 @RestController
 public class HomeController {
 
-
-    @GetMapping({"/", "/summary"})
-    public String getRe() {
-        throw new ResourceNotFoundException("Resource not found, use /resources to get al resources available resources");
+    @GetMapping({ "/", "/summary" })
+    public RouteResponseModel getResources() {
+        return new RouteResponseModel("/region", HttpMethod.GET, "returns daily  data for given region/s");
     }
 
     /**
@@ -30,8 +33,10 @@ public class HomeController {
     }
 
     @GetMapping("/metadata")
-    public Flux<Response> getMetadata() {
+    public String getMetadata() {
         return null;
     }
+
+
     
 }

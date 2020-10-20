@@ -53,6 +53,27 @@ public class RegionResponseModel extends DataResponseModel{
         return this;
     }
 
+    public RegionResponseModel confirmed(int confirmed){
+        this.setConfirmed(confirmed);
+        return this;
+    }
+
+    public RegionResponseModel deaths(int deaths){
+        this.setDeaths(deaths);
+        return this;
+    }
+
+    public RegionResponseModel recovered(int recovered){
+        this.setRecovered(recovered);
+        return this;
+    }
+
+    public RegionResponseModel active(int active){
+        this.setActive(active);
+        return this;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == this)

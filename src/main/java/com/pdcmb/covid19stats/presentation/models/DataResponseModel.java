@@ -6,10 +6,10 @@ import java.util.Objects;
 public class DataResponseModel{
 
     private Instant date;
-    private int confirmed;
-    private int deaths;
-    private int recovered;
-    private int active;
+    private Integer confirmed;
+    private Integer deaths;
+    private Integer recovered;
+    private Integer active;
 
     public DataResponseModel() {}
 
@@ -29,7 +29,7 @@ public class DataResponseModel{
         this.date = date;
     }
 
-    public int getConfirmed() {
+    public Integer getConfirmed() {
         return this.confirmed;
     }
 
@@ -37,7 +37,7 @@ public class DataResponseModel{
         this.confirmed = confirmed;
     }
 
-    public int getDeaths() {
+    public Integer getDeaths() {
         return this.deaths;
     }
 
@@ -45,7 +45,7 @@ public class DataResponseModel{
         this.deaths = deaths;
     }
 
-    public int getRecovered() {
+    public Integer getRecovered() {
         return this.recovered;
     }
 
@@ -53,7 +53,7 @@ public class DataResponseModel{
         this.recovered = recovered;
     }
 
-    public int getActive() {
+    public Integer getActive() {
         return this.active;
     }
 
