@@ -12,6 +12,7 @@ import reactor.core.scheduler.Schedulers;
  * @author Mateusz Ziomek
  * @param <I> Parameter (input) consumed by Use Case
  * @param <O> Value emitted (output) by the returned stream
+ * @see BaseMonoUseCase
  */
 public abstract class BaseFluxUseCase<I, O> {
 

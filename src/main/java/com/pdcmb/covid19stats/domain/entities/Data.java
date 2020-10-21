@@ -11,6 +11,7 @@ import java.util.Objects;
 public class Data {
 
 
+    private Region region;
     /**
      * Date rappresented by {@link Instant} instance. ISO 8601 compatible 
      */
@@ -39,7 +40,9 @@ public class Data {
 
     public Data() {}
 
-    public Data(Instant date, Integer confirmed, Integer deaths, Integer recovered, Integer active) {
+    public Data(Region region, Instant date, Integer confirmed,
+                 Integer deaths, Integer recovered, Integer active) {
+        
         this.date = date;
         this.confirmed = confirmed;
         this.deaths = deaths;
@@ -47,10 +50,22 @@ public class Data {
         this.active = active;
     }
 
+    public Region getRegion(){
+        return this.region;
+    }
+
+    public void setRegion(Region region){
+        if (this.region != null){
+            this.region.removeData(this);
+        }
+        this.region = region;
+        this.region.addData(this);
+      }
+
     /**
+     * Returns date
      * 
-     * 
-     * @return {@link Instant} date
+     * @return {@link Instant } date
      */
     public Instant getDate() {
         return this.date;
@@ -58,6 +73,8 @@ public class Data {
 
     /**
      * 
+     * 
+     * @param date
      */
     public void setDate(Instant date) {
         this.date = date;

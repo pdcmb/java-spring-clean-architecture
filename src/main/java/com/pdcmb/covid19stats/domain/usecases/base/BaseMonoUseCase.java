@@ -14,19 +14,20 @@ import reactor.core.scheduler.Schedulers;
  *
  * @param <I> Il parametro (input) d'ingresso
  * @param <O> Il valore di ritorno (output)
+ * @see BaseFluxUseCase
  */
 public abstract class BaseMonoUseCase<I extends IRequest, O extends IResponse> {
 
     /**
-     * Creates [Publisher] used by execute method
+     * Creates the {@link Mono} used by execute method
      *
-     * @param params
-     * @return
+     * @param params Parameters passed to and used by use case
+     * @return {@link Mono} which emitt requested value
      */
     protected abstract Mono<O> createPublisher(I params);
 
     /**
-     * Executes Use Case and subscribe with given [Subscriber] 
+     * Executes Use Case and returns {@link Mono} which emmitts a value.
      *
      * @param subscriber
      * @param params Parameter to be passed to Use Case

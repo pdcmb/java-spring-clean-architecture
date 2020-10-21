@@ -1,6 +1,7 @@
 package com.pdcmb.covid19stats.domain.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,16 +12,20 @@ import java.util.Objects;
  */
 public class Region {
 
+    /**
+     * Region code that unambiguously identifies this region
+     */
     private String regionCode;
+
     /**
      * Name of the region
      */
     private String name;
 
     /**
-     * Countries in that region
+     * Data for this region
      */
-    private List<Country> countries = new ArrayList<>();
+    private List<Data> data;
 
 
     /**
@@ -34,19 +39,27 @@ public class Region {
      * 
      * @param regionCode
      * @param name
-     * @param countries
+     * @param data
      */
-    public Region(String regionCode, String name, List<Country> countries) {
+    public Region(String regionCode, String name, List<Data> data) {
         this.regionCode = regionCode;
         this.name = name;
-        this.countries = countries;
+        this.data = data;
     }
 
-
+    /**
+     * Returns region code
+     * 
+     * @return {@link String} region code
+     */
     public String getRegionCode(){
         return this.regionCode;
     }
 
+    /**
+     * 
+     * @param regionCode
+     */
     public void setRegionCode(String regionCode){
         this.regionCode = regionCode;
     }
@@ -69,8 +82,8 @@ public class Region {
      * 
      * @return <b>List</b> list of countries in the region
      */
-    public List<Country> getCountries() {
-        return this.countries;
+    public List<Data> getData() {
+        return this.data;
     }
 
     /**
@@ -78,8 +91,16 @@ public class Region {
      * 
      * @param countries List of countries in the region
      */
-    public void setCountries(List<Country> countries) {
-        this.countries = countries;
+    public void setData(List<Data> countries) {
+        this.data = countries;
+    }
+
+    public void addData(Data data) {
+        this.data.add(data);
+    }
+    
+    public void removeData(Data data) {
+        this.data.remove(data);
     }
 
     public Region regionCode(String regionCode){
@@ -103,8 +124,8 @@ public class Region {
      * @param countries List of countries
      * @return <b>Region</b> Current instance of Region class
      */
-    public Region countries(List<Country> countries) {
-        this.countries = countries;
+    public Region data(List<Data> data) {
+        this.data = data;
         return this;
     }
 
@@ -117,19 +138,19 @@ public class Region {
             return false;
         }
         Region region = (Region) o;
-        return Objects.equals(name, region.name) && Objects.equals(countries, region.countries);
+        return Objects.equals(name, region.name) && Objects.equals(data, region.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, countries);
+        return Objects.hash(name, data);
     }
 
     @Override
     public String toString() {
         return "{" +
             " name='" + getName() + "'" +
-            ", countries='" + getCountries() + "'" +
+            ", data='" + getData() + "'" +
             "}";
     }
 

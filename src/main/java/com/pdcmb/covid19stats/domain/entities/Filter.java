@@ -10,6 +10,11 @@ import java.util.Objects;
 
 import com.pdcmb.covid19stats.domain.exceptions.FilterMalformedException;
 
+/**
+ * 
+ * 
+ * @author Mateusz Ziomek
+ */
 public class Filter {
 
     public enum Operator {

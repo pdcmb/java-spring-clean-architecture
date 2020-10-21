@@ -4,7 +4,7 @@ package com.pdcmb.covid19stats.domain.usecases.base;
  * Base interface for an Synchronous Use Case (or Interactor)
  *
  * This interface is used for synchronous requests that doesn't require
- * multithreading. Execute method return value directly.
+ * multithreading. {@link #execute} method return value directly.
  *
  * @author Mateusz Ziomek
  * @param <P> Parameter (input) consumed by Use Case
