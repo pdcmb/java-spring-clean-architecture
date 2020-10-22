@@ -1,6 +1,4 @@
----
-
-  
+--- 
 # Enable pretty json formatting
 spring:
   jackson:
@@ -10,26 +8,26 @@ spring:
 # Every region contains name, code and list of countries, which is defined
 # as list of slugs 
 regions:
-  middle-east:
-    name: Middle East
-    countries:
-      - saudi-arabia
-      - bahrain
-      - united-arab-emirates
-      - egypt
-      - jordan
-      - iraq
-      - iran
-      - israel
-      - kuwait
-      - lebanon
-      - oman
-      - palestine
-      - qatar
-      - syria
-      - turkey
-      - yemen
-  eu: 
+  # - code: middle-east
+  #   name: Middle East
+  #   countries:
+  #     - saudi-arabia
+  #     - bahrain
+  #     - united-arab-emirates
+  #     - egypt
+  #     - jordan
+  #     - iraq
+  #     - iran
+  #     - israel
+  #     - kuwait
+  #     - lebanon
+  #     - oman
+  #     - palestine
+  #     - qatar
+  #     - syria
+  #     - turkey
+  #     - yemen
+  - code: eu 
     name: European Union
     countries:
       - austria

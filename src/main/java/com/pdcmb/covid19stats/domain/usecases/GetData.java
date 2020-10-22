@@ -2,7 +2,6 @@ package com.pdcmb.covid19stats.domain.usecases;
 
 import com.pdcmb.covid19stats.domain.entities.Data;
 import com.pdcmb.covid19stats.domain.entities.Filter;
-import com.pdcmb.covid19stats.domain.entities.Region;
 import com.pdcmb.covid19stats.domain.repositories.IDataRepository;
 import com.pdcmb.covid19stats.domain.usecases.base.BaseFluxUseCase;
 import com.pdcmb.covid19stats.domain.usecases.base.IRequest;
@@ -47,7 +46,6 @@ public class GetData extends BaseFluxUseCase<GetData.Request, GetData.Response> 
                                     .all(filter -> filter.apply(data))
                             );
         }
-         
         return stream.map(Response::new);
     }
 

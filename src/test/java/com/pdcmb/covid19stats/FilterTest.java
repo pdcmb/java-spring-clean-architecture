@@ -20,8 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class FilterTest{
 
     List<Data> mockupData = Arrays.asList(
-        new Data(Instant.parse("2020-09-25T00:00:00Z"), 1000, 10, 400, 800),
-        new Data(Instant.parse("2020-09-20T00:00:00Z"), 500, 5, 200, 600)
+        new Data(null, Instant.parse("2020-09-25T00:00:00Z"), 1000, 10, 400, 800),
+        new Data(null, Instant.parse("2020-09-20T00:00:00Z"), 500, 5, 200, 600)
         );
     
     // Test data filtering

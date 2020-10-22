@@ -42,7 +42,7 @@ public class Data {
 
     public Data(Region region, Instant date, Integer confirmed,
                  Integer deaths, Integer recovered, Integer active) {
-        
+        this.region = region;
         this.date = date;
         this.confirmed = confirmed;
         this.deaths = deaths;
@@ -61,7 +61,6 @@ public class Data {
         this.region = region;
         this.region.addData(this);
       }
-
     /**
      * Returns date
      * 
@@ -126,6 +125,17 @@ public class Data {
      * @param date 
      * @return <b>Day</b> 
      */
+    public Data region(Region region) {
+        this.setRegion(region);
+        return this;
+    }
+
+    /**
+     * Fluent setter which sets date
+     * 
+     * @param date 
+     * @return <b>Day</b> 
+     */
     public Data date(Instant date) {
         this.date = date;
         return this;
@@ -151,11 +161,12 @@ public class Data {
         return this;
     }
 
-    public void add(Data data){
+    public Data merge(Data data){
         this.confirmed = this.confirmed + data.confirmed;
         this.deaths = this.deaths + data.deaths;
         this.recovered = this.recovered + data.recovered;
         this.active = this.active + data.active;
+        return this;
     }
 
     @Override

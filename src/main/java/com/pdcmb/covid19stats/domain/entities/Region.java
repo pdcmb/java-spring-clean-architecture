@@ -1,7 +1,5 @@
 package com.pdcmb.covid19stats.domain.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -95,11 +93,19 @@ public class Region {
         this.data = countries;
     }
 
+    /**
+     * Adds {@lin}
+     * 
+     * @param data
+     */
     public void addData(Data data) {
+        if(!data.getRegion().equals(this))
+            data.setRegion(this);
         this.data.add(data);
     }
     
     public void removeData(Data data) {
+        data.setRegion(null);
         this.data.remove(data);
     }
 
