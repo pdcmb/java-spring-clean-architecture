@@ -55,7 +55,12 @@ public class Filter {
             if (operator.equals(Operator.BETWEEN)) {
                 if (!value.getClass().isArray()) {
                     throw new FilterMalformedException("Between operator requires an array");
-                } else if (!((Object[]) value)[0].getClass().equals(Data.class.getDeclaredField(fieldName).getType())) {
+                }
+                else if ((((Object[])value).length != 2) ) {
+                    throw new FilterMalformedException("Between operator requires "
+                                                    + " an array with exacly two values");
+                } 
+                else if (!((Object[]) value)[0].getClass().equals(Data.class.getDeclaredField(fieldName).getType())) {
                     throw new FilterMalformedException("Field " + fieldName + " needs to be an array of " 
                             + Data.class.getDeclaredField(fieldName).getType().getSimpleName() + " type");
                 }
@@ -124,12 +129,12 @@ public class Filter {
     }
     private Boolean evaluateBeetwen(Object obj){
         if(obj instanceof Instant){
-            if( ((Instant)obj).compareTo(((Instant[])value)[0]) > 0 
+            if(((Instant)obj).compareTo(((Instant[])value)[0]) > 0 
                 && ((Instant)obj).compareTo(((Instant[])value)[1]) < 0 )
                 return true;
             else return false;
         } else{
-            return ((Integer)obj > ((Integer[])obj)[0]) && ((Integer)obj < ((Integer[])obj)[1]);
+            return ((Integer)obj > ((Integer[])value)[0]) && ((Integer)obj < ((Integer[])value)[1]);
         }
     }
 

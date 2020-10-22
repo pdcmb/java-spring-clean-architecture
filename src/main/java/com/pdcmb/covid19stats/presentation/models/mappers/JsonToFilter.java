@@ -26,12 +26,14 @@ import org.springframework.stereotype.Component;
 public class JsonToFilter {
 
     public Filter[] map(String json){
+
         if (json == null || json.isEmpty())
             return null;
         Pattern fieldPattern = Pattern.compile("(^[a-z-A-Z]+)");
         Pattern operatorPattern = Pattern.compile("^\\$(.+)");
         List<Filter> filters = new ArrayList<>();
         JsonNode jsonNode;
+
         try {
 
             jsonNode = new ObjectMapper().readTree(json);
@@ -53,17 +55,45 @@ public class JsonToFilter {
                         throw new FilterMalformedException("Argument cannot be null");
                     }
 
-                    Matcher matcher = operatorPattern.matcher(entry.getValue().fields().next().getKey());
+                    Entry<String, JsonNode> argument = entry.getValue().fields().next();
 
-                    if(matcher.find()){
+                    Matcher matcher = operatorPattern.matcher(argument.getKey());
 
-                        operator = Operator.forAlias(matcher.group(1));
+                    if(!matcher.find()){
+                        throw new FilterMalformedException("Incorrect operator form"); 
+                    }
 
-                        if(operator == null){
-                            throw new FilterMalformedException("Operator " + matcher.group(1) + " doesn't exists");
+                    operator = Operator.forAlias(matcher.group(1));
+
+                    if(operator == null){
+                        throw new FilterMalformedException("Operator " + matcher.group(1) 
+                                                            + " doesn't exists");
+                    }
+                    JsonNode valueNode = argument.getValue();
+
+                    if(valueNode.isArray()){
+
+                        List<Object> valuesList = new ArrayList<>();
+
+                        for(JsonNode objNode :valueNode){
+
+                            if(objNode.isInt()){
+                                valuesList.add(objNode.asInt());
+                            } else if(DateUtils.isValidDate(objNode.asText())) {
+                                valuesList.add(Instant.parse(objNode.asText()));
+                            } else {
+                                throw new FilterMalformedException("Invalid value passed");
+                            }
                         }
 
-                        JsonNode valueNode = entry.getValue().fields().next().getValue();
+                        if(valuesList.size() != 2){
+                            throw new FilterMalformedException("Array needs to have exacly two elements");
+                        } 
+                        else{
+                            filters.add(new Filter(operator, fieldName, valuesList.toArray()));
+                        }
+                        
+                    } else {
 
                         if(valueNode.isInt()){
                             value = valueNode.asInt();
@@ -72,10 +102,10 @@ public class JsonToFilter {
                         } else {
                             throw new FilterMalformedException("Invalid value passed");
                         }
-                    } else {
-                        throw new FilterMalformedException("Operator needs to be $operator"); 
+
+                        filters.add(new Filter(operator, fieldName, value));
                     }
-                    filters.add(new Filter(operator, fieldName, value));
+                    
                 }
                 return filters.toArray(Filter[]::new); 
             }   

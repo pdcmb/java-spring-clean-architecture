@@ -1,5 +1,6 @@
 package com.pdcmb.covid19stats.presentation.handlers;
 
+import com.pdcmb.covid19stats.domain.exceptions.FilterMalformedException;
 import com.pdcmb.covid19stats.presentation.exceptions.ResourceNotFoundException;
 import com.pdcmb.covid19stats.presentation.models.ApiErrorResponseModel;
 
@@ -23,15 +24,26 @@ public class GlobalExceptionHandler {
             return new ResponseEntity<ApiErrorResponseModel>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({FilterMalformedException.class})
+    public final ResponseEntity<ApiErrorResponseModel> handleFilterMalformedException(
+        FilterMalformedException ex){
+            ApiErrorResponseModel error = 
+                    new ApiErrorResponseModel()
+                            .status(HttpStatus.BAD_REQUEST.value())
+                            .reason("Bad Request")
+                            .message(ex.getMessage());       
+            return new ResponseEntity<ApiErrorResponseModel>(error, HttpStatus.BAD_REQUEST);
+    }
 
-//     @ExceptionHandler({Exception.class})
-//     public final ResponseEntity<ApiErrorResponseModel> handleServerException(Exception ex){
-//             ApiErrorResponseModel error = 
-//                     new ApiErrorResponseModel()
-//                             .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-//                             .reason("Server error")
-//                             .message(ex.getMessage());       
-//             return new ResponseEntity<ApiErrorResponseModel>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-//     }
+
+    @ExceptionHandler({Exception.class})
+    public final ResponseEntity<ApiErrorResponseModel> handleServerException(Exception ex){
+            ApiErrorResponseModel error = 
+                    new ApiErrorResponseModel()
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                            .reason("Server error")
+                            .message(ex.getMessage());       
+            return new ResponseEntity<ApiErrorResponseModel>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     
 }

@@ -1,3 +1,14 @@
 language: java
 jdk:
     - openjdk14
+
+script:
+    - ./gradlew javadoc
+
+deploy:
+    provider: pages
+    skip_cleanup: true
+    github-token: $GH_TOKEN
+    local_dir: build/docs/javadoc 
+    on:
+        branch: master

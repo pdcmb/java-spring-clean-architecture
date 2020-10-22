@@ -65,13 +65,41 @@ public class FilterTest{
         assertEquals(true, filter.apply(mockupData.get(1)));
     }
 
+    @Test
+    @DisplayName("Test filter with beetwen operator")
+    void testBeetwen(){
+        Filter filter = new Filter(Operator.BETWEEN, "confirmed", new Integer[]{700, 1200});
+        assertEquals(true, filter.apply(mockupData.get(0)));
+        assertEquals(false, filter.apply(mockupData.get(1)));
+
+        filter = new Filter(Operator.BETWEEN, "date",
+                            new Instant[]{ 
+                                        Instant.parse("2020-09-24T00:00:00Z"),
+                                        Instant.parse("2020-09-27T00:00:00Z")
+                            });
+        assertEquals(true, filter.apply(mockupData.get(0)));
+        assertEquals(false, filter.apply(mockupData.get(1)));
+    }
+
 
     @Test
     @DisplayName("Testing if exception are thrown correctly")
     void testExceptions(){
         assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.GREATER, "field", 800); } );
-        assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.GREATER, "field", 800); } );
-        assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.BETWEEN, "field", 800); } );
+        assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.GREATER, "date", 500); } );
+        assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.BETWEEN, "active", 400); } );
+        assertThrows(FilterMalformedException.class,
+                         () -> { 
+                            new Filter(Operator.BETWEEN, "confirmed", new Integer[]{ 500, 1000, 200 });
+                         });
+        assertThrows(FilterMalformedException.class,
+                        () -> { 
+                        new Filter(Operator.BETWEEN, "active", new String[]{ "a", "b"});
+                        });
+        assertThrows(FilterMalformedException.class,
+                        () -> { 
+                        new Filter(Operator.BETWEEN, "date", new String[]{ "a", "b"});
+                        });
     }
 
 
