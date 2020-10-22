@@ -32,7 +32,6 @@ public class JsonToFilter {
      * @param json Json string to convert
      * @return An array that contains Filters
      * @throws FilterMalformedException if filter is of incorrect form
-     * @throws JsonProcessingException on error during parsing json
      */
     public Filter[] map(String json){
 
