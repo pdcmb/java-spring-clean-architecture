@@ -72,7 +72,9 @@ public class Region {
     }
 
     /**
+     * Sets region name
      * 
+     * @param name Region's name
      */
 	public void setName(String name) {
         this.name = name;

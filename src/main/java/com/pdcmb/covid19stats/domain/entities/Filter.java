@@ -51,8 +51,8 @@ public class Filter {
         /**
          * Returns an {@link Operator} given alias
          * 
-         * @param alias
-         * @return
+         * @param alias Alias of opertor to retrieve
+         * @return Operator instance with given alias
          */
         public static Operator forAlias(String alias) {
             return aliases.get(alias);

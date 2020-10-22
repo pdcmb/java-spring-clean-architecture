@@ -46,12 +46,12 @@ public class Data {
     /**
      * Constructor which sets all fields
      * 
-     * @param region
-     * @param date
-     * @param confirmed
-     * @param deaths
-     * @param recovered
-     * @param active
+     * @param region Region ti which this data belongs
+     * @param date Instance
+     * @param confirmed Confirmed cases
+     * @param deaths Number of deaths
+     * @param recovered Number of recovered
+     * @param active Active cases
      */
     public Data(Region region, Instant date, Integer confirmed,
                  Integer deaths, Integer recovered, Integer active) {
@@ -186,7 +186,7 @@ public class Data {
     /**
      * Fluent setter which sets date
      * 
-     * @param date 
+     * @param date Date to set as {@link Instant} instance
      * @return Current {@link Data} instance 
      */
     public Data date(Instant date) {
@@ -216,6 +216,12 @@ public class Data {
         return this;
     }
 
+    /**
+     * Fluent setter for setting number of recovered
+     * 
+     * @param recovered Number of recovered
+     * @return This {@link Data} instance
+     */
     public Data recovered(Integer recovered) {
         this.recovered = recovered;
         return this;
