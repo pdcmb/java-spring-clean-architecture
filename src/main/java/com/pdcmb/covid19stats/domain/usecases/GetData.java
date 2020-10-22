@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
 /**
- * User Case that retrievie data from repository. Output can be filtered by passing filter
+ * User Case that retrievie data about specific region/s from repository.
+ * Region can be speOutput can be filtered by passing filter
  * as a parameter. 
  * 
  * @author Mateusz Ziomek
@@ -70,7 +71,7 @@ public class GetData extends BaseFluxUseCase<GetData.Request, GetData.Response> 
 
 
     /**
-     * DTO for output values crossing boundary
+     * Class that rappresents a request
      */
     public static class Request implements IRequest{
 

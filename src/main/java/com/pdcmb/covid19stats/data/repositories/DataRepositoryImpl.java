@@ -13,12 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import reactor.core.publisher.Flux;
 
-/**
- * Region repository, it retrieves {@link Region} entities
- * 
- * @author Mateusz Ziomek
- */
-
 @Repository
 public class DataRepositoryImpl implements IDataRepository {
 
@@ -34,8 +28,6 @@ public class DataRepositoryImpl implements IDataRepository {
         this.regionCache = regionCache;
         this.regionEntityToRegion = regionEntityToRegion;
     }
-
-    
     @Override
     public Flux<Data> getAllData() {
         return regionCache.getAll()

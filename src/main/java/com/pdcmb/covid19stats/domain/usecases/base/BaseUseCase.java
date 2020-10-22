@@ -7,8 +7,8 @@ package com.pdcmb.covid19stats.domain.usecases.base;
  * multithreading. {@link #execute} method return value directly.
  *
  * @author Mateusz Ziomek
- * @param <P> Parameter (input) consumed by Use Case
- * @param <R> Value returned by Use Case (output)
+ * @param <I> Parameter (input) consumed by Use Case
+ * @param <O> Value returned by Use Case (output)
  */
 public interface BaseUseCase<I extends IRequest, O extends IResponse>{
     

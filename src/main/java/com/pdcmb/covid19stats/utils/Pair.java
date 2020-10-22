@@ -7,8 +7,8 @@ import java.util.Objects;
  * Simple class that rappresent a pair of values
  * 
  * @author Mateusz Ziomek
- * @param T First value (key)
- * @param R Second value (value)
+ * @param <T> First value (key)
+ * @param <R> Second value (value)
  */
 public class Pair<T, R> {
 

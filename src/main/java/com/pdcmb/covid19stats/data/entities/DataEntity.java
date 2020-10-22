@@ -28,14 +28,7 @@ public class DataEntity {
     private RegionEntity region;
     
 
-    public DataEntity() {
-    
-        this.confirmed = confirmed;
-        this.deaths = deaths;
-        this.recovered = recovered;
-        this.active = active;
-        this.region = region;
-    }
+    public DataEntity() { }
 
     public DataEntity(DataEntity dataEntity) {
         this(dataEntity.getId(), dataEntity.getDate(), dataEntity.getConfirmed(), dataEntity.getDeaths(),

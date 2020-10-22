@@ -17,12 +17,6 @@ public class HomeController {
         return new RouteResponseModel("/region", HttpMethod.GET, "returns daily  data for given region/s");
     }
 
-    /**
-     * Default fallback route
-     * 
-     * @param request
-     * @return
-     */
     @GetMapping("*")
     public String fallbackRoute() {
         throw new ResourceNotFoundException("Resource not found, use /summary to get al resources available resources");

@@ -32,7 +32,7 @@ public class Covid19Api {
 
 
     /**
-     * Function that retrieves data from Covid19api.
+     * Method that retrieves data from Covid19api.
      * It makes a request for every country in given region, data are then grouped
      * and merged into a {@link RegionEntity} 
      * 

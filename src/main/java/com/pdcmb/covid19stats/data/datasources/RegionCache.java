@@ -47,8 +47,7 @@ public class RegionCache {
      * Adds {@link RegionEntity RegionEntities} passed as arguments
      * to the list of cached regions
      * 
-     * @param regions
-     * @return A {@link Flux} that emitts region code of added items
+     * @param region Region Entity to add to cache.
      */
     public void add(RegionEntity region) {
         this.regions.add(new RegionEntity(region));

@@ -2,6 +2,10 @@ package com.pdcmb.covid19stats.domain.entities;
 
 import java.util.Objects;
 
+/**
+ * 
+ * @author Mateusz Ziomek
+ */
 public class Stats {
 
     private Integer average;

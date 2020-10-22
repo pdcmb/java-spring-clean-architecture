@@ -25,6 +25,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class JsonToFilter {
 
+    /**
+     * <p> </p>
+     * 
+     * @param json
+     * @return
+     */
     public Filter[] map(String json){
 
         if (json == null || json.isEmpty())

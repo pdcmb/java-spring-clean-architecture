@@ -1,14 +1,32 @@
 package com.pdcmb.covid19stats.presentation.models;
 
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
- * 
+ * Class that rappresents a 
  * 
  * @author Mateusz Ziomek
  */
 public class DataResponseModel{
+
+
+    /**
+     * 
+     * @author Mateusz Ziomek
+     */
+    public static class Metdata{
+        public final static List<FieldResponseModel> METADATA = Arrays.asList(
+            new FieldResponseModel("regionCode", "Region code used to identify a region", "String"),
+            new FieldResponseModel("regionName", "Region name", "String"),
+            new FieldResponseModel("date", "Day to which data reff", "String"),
+            new FieldResponseModel("confirmed", "Confirmed", "Integer"),
+            new FieldResponseModel("deaths", "Deaths", "Integer"),
+            new FieldResponseModel("active", "Active", "Integer")
+        );
+    }
 
     private String regionCode;
     private String regionName;

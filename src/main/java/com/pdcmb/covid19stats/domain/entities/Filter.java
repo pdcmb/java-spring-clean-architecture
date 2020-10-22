@@ -11,12 +11,21 @@ import java.util.Objects;
 import com.pdcmb.covid19stats.domain.exceptions.FilterMalformedException;
 
 /**
- * 
+ * A class that rappresents a filter 
  * 
  * @author Mateusz Ziomek
  */
 public class Filter {
 
+    /**
+     *<p> Enum that hold logical operations</p>
+     *<p> An instance can be also retrieved using {@link #forAlias(String)} specifying alias
+     * of the operator </p>
+     * 
+     * Aliases are: <b>gt</b>, <b>lt</b>, <b>eq</b>, <b>bt</b>
+     * 
+     * @author Mateusz Ziomek
+     */
     public enum Operator {
         GREATER("gt"), LESS("lt"), EQUAL("eq"), BETWEEN("bt");
 
@@ -39,6 +48,12 @@ public class Filter {
             return this.alias;
         }
 
+        /**
+         * Returns an {@link Operator} given alias
+         * 
+         * @param alias
+         * @return
+         */
         public static Operator forAlias(String alias) {
             return aliases.get(alias);
         }
@@ -46,10 +61,27 @@ public class Filter {
 
     private Operator operator;
 
+    /**
+     * Name of the field to which apply this filter
+     */
     private String fieldName;
+
+    /**
+     * Name of the getter method used to get specified field
+     */
     private Method getter;
+
+    /**
+     * Value compared to
+     */
     private Object value;
 
+    /**
+     * 
+     * @param operator {@link Operator} used by this filter
+     * @param fieldName Name of the field to compare to 
+     * @param value A value to which data will be compared to
+     */
     public Filter(Operator operator, String fieldName, Object value) {
         try {
             if (operator.equals(Operator.BETWEEN)) {
@@ -82,6 +114,16 @@ public class Filter {
 
     }
 
+    /**
+     * <p>Applies this filter to {@link Data} instance passed ad argument. 
+     * It compares specified field value of the data instance to the value stored inside 
+     * this filter instance. </p>
+     * 
+     * <p>For instance, with "greater" operator it returns true if specified field of the provided Data
+     * instance is greater that value stored </p>
+     * @param data Data object to which apply this filter
+     * @return A boolean, result of the comparision
+     */
     public Boolean apply(Data data) {
         Object obj;
         try {

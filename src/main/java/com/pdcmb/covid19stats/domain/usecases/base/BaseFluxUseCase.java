@@ -6,8 +6,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
 /**
- * Abstract class rappresenting base synchronous Use Case (Interactor) that 
- *
+ * Abstract class rappresenting base asynchronous Use Case (Interactor)
+ * which returns a {@link Flux} 
  *
  * @author Mateusz Ziomek
  * @param <I> Parameter (input) consumed by Use Case
@@ -19,8 +19,8 @@ public abstract class BaseFluxUseCase<I, O> {
     /**
      * Creates {@link Publisher} used by {@link #execute} method
      *
-     * @param params
-     * @return
+     * @param params Parameters passed to and used by use case
+     * @return {@link Flux} which emits requested value
      */
     protected abstract Flux<O> createPublisher(I params);
 

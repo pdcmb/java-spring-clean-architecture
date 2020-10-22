@@ -8,8 +8,10 @@ import com.pdcmb.covid19stats.domain.entities.Region;
 import org.springframework.stereotype.Component;
 
 /**
+ * Maps {@link RegionEntity} instance to domain's
+ * {@link Region} instance
  * 
- * @author 
+ * @author Mateusz Ziomek
  */
 @Component
 public class RegionEntityToRegion {
@@ -20,6 +22,12 @@ public class RegionEntityToRegion {
         this.dataMapper = dataMapper;
     }
 
+    /**
+     * Transforms {@link RegionEntity} into a {@link Region}
+     * 
+     * @param regionEntity Region data entity to be transformed
+     * @return A corresponding domain Region entity
+     */
     public Region map(RegionEntity regionEntity){
         Region region = new Region(
                             regionEntity.getRegionCode(),

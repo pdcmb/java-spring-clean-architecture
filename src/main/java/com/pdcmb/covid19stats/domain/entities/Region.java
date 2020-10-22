@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Domain entity that rappresents a region. Region is made of more countries.
+ * Domain entity that rappresents a region dataset.
  * 
  * @author Mateusz Ziomek
  */
@@ -21,7 +21,7 @@ public class Region {
     private String name;
 
     /**
-     * Data for this region
+     * Data relevant this region
      */
     private List<Data> data;
 
@@ -35,9 +35,9 @@ public class Region {
     /**
      * Consructor which sets all fields
      * 
-     * @param regionCode
-     * @param name
-     * @param data
+     * @param regionCode String rappresenting region code
+     * @param name Region name
+     * @param data Data for this region
      */
     public Region(String regionCode, String name, List<Data> data) {
         this.regionCode = regionCode;
@@ -48,15 +48,16 @@ public class Region {
     /**
      * Returns region code
      * 
-     * @return {@link String} region code
+     * @return Region code
      */
     public String getRegionCode(){
         return this.regionCode;
     }
 
     /**
+     * Sets region code
      * 
-     * @param regionCode
+     * @param regionCode String containg region code
      */
     public void setRegionCode(String regionCode){
         this.regionCode = regionCode;
@@ -64,12 +65,15 @@ public class Region {
     /**
      * Returns region's name
      * 
-     * @return <b>String</b> name of the region
+     * @return String containing name of the region
      */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * 
+     */
 	public void setName(String name) {
         this.name = name;
     }
@@ -85,18 +89,18 @@ public class Region {
     }
 
     /**
-     * Setter which sets list of countries 
+     * Setter which sets data for this region
      * 
-     * @param countries List of countries in the region
+     * @param data List containg {@link Data} instances to be added 
      */
-    public void setData(List<Data> countries) {
-        this.data = countries;
+    public void setData(List<Data> data) {
+        this.data = data;
     }
 
     /**
-     * Adds {@lin}
+     * Adds single {@link Data} to this dataset
      * 
-     * @param data
+     * @param data Data to be added
      */
     public void addData(Data data) {
         if(!data.getRegion().equals(this))
@@ -104,6 +108,11 @@ public class Region {
         this.data.add(data);
     }
     
+    /**
+     * Removes single {@link Data} instance
+     * 
+     * @param data Data object to be removed from this region
+     */
     public void removeData(Data data) {
         data.setRegion(null);
         this.data.remove(data);
@@ -117,7 +126,7 @@ public class Region {
      * Fluent setter for setting region's name 
      * 
      * @param name Regions name
-     * @return <b>Region</b> Current instance of Region class
+     * @return Current instance of {@link Region} class
      */
     public Region name(String name) {
         this.name = name;
@@ -125,10 +134,10 @@ public class Region {
     }
 
     /**
-     * Fluent setter which sets list of countries 
+     * Fluent setter which sets List of {@link Data} 
      * 
-     * @param countries List of countries
-     * @return <b>Region</b> Current instance of Region class
+     * @param data List of odata
+     * @return Current instance of {@link Region} class
      */
     public Region data(List<Data> data) {
         this.data = data;
