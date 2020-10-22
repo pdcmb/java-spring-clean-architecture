@@ -1,15 +1,11 @@
 package com.pdcmb.covid19stats.presentation.controllers;
 
-import java.time.Instant;
-
 import com.pdcmb.covid19stats.presentation.exceptions.ResourceNotFoundException;
 import com.pdcmb.covid19stats.presentation.models.RouteResponseModel;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Component

@@ -1,13 +1,17 @@
 package com.pdcmb.covid19stats.presentation.controllers;
 
-import com.pdcmb.covid19stats.configuration.RegionsConfig;
-import com.pdcmb.covid19stats.domain.usecases.GetRegionData;
-import com.pdcmb.covid19stats.domain.usecases.GetRegionData.Request;
-import com.pdcmb.covid19stats.domain.usecases.GetRegionData.Response;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.pdcmb.covid19stats.configuration.AppProperties;
+import com.pdcmb.covid19stats.domain.usecases.GetData;
+import com.pdcmb.covid19stats.domain.usecases.GetData.Request;
 import com.pdcmb.covid19stats.presentation.exceptions.ResourceNotFoundException;
-import com.pdcmb.covid19stats.presentation.models.RegionResponseModel;
+import com.pdcmb.covid19stats.presentation.models.DataResponseModel;
 import com.pdcmb.covid19stats.presentation.models.RouteResponseModel;
-import com.pdcmb.covid19stats.presentation.models.mappers.RegionMapper;
+import com.pdcmb.covid19stats.presentation.models.StatsResponseModel;
+import com.pdcmb.covid19stats.presentation.models.mappers.DataToDataResponse;
+import com.pdcmb.covid19stats.presentation.models.mappers.JsonToFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -23,22 +27,24 @@ import reactor.core.publisher.Flux;
 @RestController
 public class RegionController {
 
-    private final RegionsConfig regionsConfig;
-    private final RegionMapper regionMapper;
+    private final AppProperties appProperties;
 
-    private final GetRegionData getRegionData;
+    private final JsonToFilter jsonToFilter;
+    private final DataToDataResponse dataToDataResponse;
+
+    private final GetData getData;
     
     @Autowired
-    public RegionController(RegionsConfig regionsConfig, RegionMapper regionMapper,
-                                                         GetRegionData getRegionData){
-        this.regionsConfig = regionsConfig;
-        this.regionMapper = regionMapper;
-        this.getRegionData = getRegionData;
-
+    public RegionController(AppProperties appProperties, JsonToFilter jsonToFilter,
+                            DataToDataResponse dataToDataResponse, GetData getData){
+        this.appProperties = appProperties;
+        this.jsonToFilter = jsonToFilter;
+        this.dataToDataResponse = dataToDataResponse;
+        this.getData = getData;
     }
 
     @GetMapping("/region")
-    public Flux<RouteResponseModel>getAllData(@RequestParam(required = false) String filter) {
+    public Flux<RouteResponseModel>getAllData() {
         return Flux.fromArray(new RouteResponseModel[]{
             new RouteResponseModel("region/:name", HttpMethod.GET, "returns daily  data for given region/s"),
             new RouteResponseModel("region/:name/latest", HttpMethod.GET, "return latest data for given region/s"),
@@ -48,35 +54,40 @@ public class RegionController {
     }
 
     @GetMapping("/region/{region}")
-    public Flux<RegionResponseModel> getData(@PathVariable String region,
-                                             @RequestParam(required = false) String filter) {                                        
-         return getRegionData.execute(new Request(region.equals("all") ? null : region, null ))
-                             .flatMap(response -> regionMapper.transform(response.getRegion()));
+    public Flux<DataResponseModel> getRegionData(@PathVariable String region,
+                                            @RequestParam(required = false) String filter) {
+        return getData.execute(new Request(region.equals("all") ? null : region,
+                                            jsonToFilter.map(filter)))
+                            .map(response -> dataToDataResponse.map(response.getRegion()));
     }
 
     @GetMapping("/region/{region}/latest")
-    public Flux<RegionResponseModel> getLatestData(@PathVariable String region, @RequestParam(required = false) String filter) {
-        return null;    
+    public Flux<DataResponseModel> getLatestRegionData(@PathVariable String region,
+                                                @RequestParam(required = false) String filter) {
+        return getData.execute(new Request(region.equals("all") ? null : region,
+                                            jsonToFilter.map(filter)))
+                            .map(response -> dataToDataResponse.map(response.getRegion()));    
     }
 
     @GetMapping("/region/{region}/stats")
-    public Flux<Response> getStats(@RequestParam(required = false) String name) {
+    public Flux<StatsResponseModel> getStats(@PathVariable String name, @RequestParam String field, 
+                                    @RequestParam(required = false) String filter){
         return null;
     }
 
     @GetMapping("/region/*")
     public void fallbackRoute() {
-        throw new ResourceNotFoundException("Region non found, use /regions to list all regions available");
+        throw new ResourceNotFoundException("Region non found, use /regions to get all regions available");
     }
 
     @GetMapping("/regions")
-    public Flux<RegionResponseModel> getRegions() {
-        return Flux.fromIterable(regionsConfig.getRegions().keySet())
-                    .map(regionCode -> {
-                        System.out.println(regionCode);
-                        return new RegionResponseModel()
-                                        .regionCode(regionCode)
-                                        .regionName(regionsConfig.getRegions().get(regionCode).getName());
+    public Flux<Map<String,String>> getRegions() {
+        return Flux.fromIterable(appProperties.getRegions())
+                    .map(region -> {
+                        Map<String,String> regionsMap = new HashMap<>();
+                        regionsMap.put("region code", region.getCode());
+                        regionsMap.put("region name", region.getName());
+                        return regionsMap;
                     });
     }
     

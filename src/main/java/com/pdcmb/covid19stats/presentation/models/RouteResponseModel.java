@@ -6,10 +6,6 @@ import org.springframework.http.HttpMethod;
 
 public class RouteResponseModel {
 
-    public static class Parameter{
-
-    }
-
     private String route;
     private HttpMethod method;
     private String description;

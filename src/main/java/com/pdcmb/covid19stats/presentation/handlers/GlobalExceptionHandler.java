@@ -24,14 +24,14 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler({Exception.class})
-    public final ResponseEntity<ApiErrorResponseModel> handleServerException(Exception ex){
-            ApiErrorResponseModel error = 
-                    new ApiErrorResponseModel()
-                            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                            .reason("Server error")
-                            .message(ex.getMessage());       
-            return new ResponseEntity<ApiErrorResponseModel>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//     @ExceptionHandler({Exception.class})
+//     public final ResponseEntity<ApiErrorResponseModel> handleServerException(Exception ex){
+//             ApiErrorResponseModel error = 
+//                     new ApiErrorResponseModel()
+//                             .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+//                             .reason("Server error")
+//                             .message(ex.getMessage());       
+//             return new ResponseEntity<ApiErrorResponseModel>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+//     }
     
 }

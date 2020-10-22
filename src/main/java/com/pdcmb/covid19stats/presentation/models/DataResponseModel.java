@@ -3,8 +3,15 @@ package com.pdcmb.covid19stats.presentation.models;
 import java.time.Instant;
 import java.util.Objects;
 
+/**
+ * 
+ * 
+ * @author Mateusz Ziomek
+ */
 public class DataResponseModel{
 
+    private String regionCode;
+    private String regionName;
     private Instant date;
     private Integer confirmed;
     private Integer deaths;
@@ -13,12 +20,33 @@ public class DataResponseModel{
 
     public DataResponseModel() {}
 
-    public DataResponseModel(Instant date, int confirmed, int deaths, int recovered, int active) {
+
+    public DataResponseModel(String regionCode, String regionName, Instant date,
+                                Integer confirmed, Integer deaths, Integer recovered,
+                                Integer active) {
+        this.regionCode = regionCode;
+        this.regionName = regionName;
         this.date = date;
         this.confirmed = confirmed;
         this.deaths = deaths;
         this.recovered = recovered;
         this.active = active;
+    }
+
+    public String getRegionCode() {
+        return this.regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public String getRegionName() {
+        return this.regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     public Instant getDate() {
@@ -33,7 +61,7 @@ public class DataResponseModel{
         return this.confirmed;
     }
 
-    public void setConfirmed(int confirmed) {
+    public void setConfirmed(Integer confirmed) {
         this.confirmed = confirmed;
     }
 
@@ -41,7 +69,7 @@ public class DataResponseModel{
         return this.deaths;
     }
 
-    public void setDeaths(int deaths) {
+    public void setDeaths(Integer deaths) {
         this.deaths = deaths;
     }
 
@@ -49,7 +77,7 @@ public class DataResponseModel{
         return this.recovered;
     }
 
-    public void setRecovered(int recovered) {
+    public void setRecovered(Integer recovered) {
         this.recovered = recovered;
     }
 
@@ -57,8 +85,18 @@ public class DataResponseModel{
         return this.active;
     }
 
-    public void setActive(int active) {
+    public void setActive(Integer active) {
         this.active = active;
+    }
+
+    public DataResponseModel regionName(String regionName) {
+        this.regionName = regionName;
+        return this;
+    }
+
+    public DataResponseModel regionCode(String regionCode) {
+        this.regionCode = regionCode;
+        return this;
     }
 
     public DataResponseModel date(Instant date) {
@@ -66,22 +104,22 @@ public class DataResponseModel{
         return this;
     }
 
-    public DataResponseModel confirmed(int confirmed) {
+    public DataResponseModel confirmed(Integer confirmed) {
         this.confirmed = confirmed;
         return this;
     }
 
-    public DataResponseModel deaths(int deaths) {
+    public DataResponseModel deaths(Integer deaths) {
         this.deaths = deaths;
         return this;
     }
 
-    public DataResponseModel recovered(int recovered) {
+    public DataResponseModel recovered(Integer recovered) {
         this.recovered = recovered;
         return this;
     }
 
-    public DataResponseModel active(int active) {
+    public DataResponseModel active(Integer active) {
         this.active = active;
         return this;
     }
@@ -94,28 +132,25 @@ public class DataResponseModel{
             return false;
         }
         DataResponseModel dataResponseModel = (DataResponseModel) o;
-        return Objects.equals(date, dataResponseModel.date) && confirmed == dataResponseModel.confirmed && deaths == dataResponseModel.deaths && recovered == dataResponseModel.recovered && active == dataResponseModel.active;
+        return Objects.equals(regionName, dataResponseModel.regionName) && Objects.equals(regionCode, dataResponseModel.regionCode) && Objects.equals(date, dataResponseModel.date) && Objects.equals(confirmed, dataResponseModel.confirmed) && Objects.equals(deaths, dataResponseModel.deaths) && Objects.equals(recovered, dataResponseModel.recovered) && Objects.equals(active, dataResponseModel.active);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, confirmed, deaths, recovered, active);
+        return Objects.hash(regionName, regionCode, date, confirmed, deaths, recovered, active);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " date='" + getDate() + "'" +
+            " regionName='" + getRegionName() + "'" +
+            ", regionCode='" + getRegionCode() + "'" +
+            ", date='" + getDate() + "'" +
             ", confirmed='" + getConfirmed() + "'" +
             ", deaths='" + getDeaths() + "'" +
             ", recovered='" + getRecovered() + "'" +
             ", active='" + getActive() + "'" +
             "}";
     }
-
-
-
-
-
     
 }

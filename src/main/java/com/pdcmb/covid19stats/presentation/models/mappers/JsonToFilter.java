@@ -23,9 +23,11 @@ import org.springframework.stereotype.Component;
  * Transforms Json string to Filter list
  */
 @Component
-public class FilterMapper {
+public class JsonToFilter {
 
-    public List<Filter> transform(String json){
+    public Filter[] map(String json){
+        if (json == null || json.isEmpty())
+            return null;
         Pattern fieldPattern = Pattern.compile("(^[a-z-A-Z]+)");
         Pattern operatorPattern = Pattern.compile("^\\$(.+)");
         List<Filter> filters = new ArrayList<>();
@@ -75,7 +77,7 @@ public class FilterMapper {
                     }
                     filters.add(new Filter(operator, fieldName, value));
                 }
-                return filters; 
+                return filters.toArray(Filter[]::new); 
             }   
         } catch (JsonMappingException e) {
             throw new FilterMalformedException(e.getMessage());
