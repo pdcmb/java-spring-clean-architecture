@@ -105,9 +105,9 @@ public class Filter {
             this.fieldName = fieldName;
             this.value = value;
         } catch (NoSuchFieldException ex) {
-            throw new FilterMalformedException("Field " + fieldName + " doesn't exists");
+            throw new NoSuchFieldError("Field " + fieldName + " doesn't exists");
         } catch (NoSuchMethodException ex) {
-            throw new RuntimeException(ex.getLocalizedMessage());
+            throw new NoSuchFieldError("Field " + fieldName + " doesn't exists");
         } catch (SecurityException ex){
             throw new RuntimeException(ex.getMessage());
         }

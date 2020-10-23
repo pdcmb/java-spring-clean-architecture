@@ -27,12 +27,15 @@ To install simply clone this repository and than build it using gradle
 
 Possible routes are:
 
-Method | Uri | Description |
------------- | ------------- | ----------- |
-GET | /regions  | Returns all regions available
-GET | /region/:region?filter  | Returns data for a given region
-GET | /region/metadata | Returns metadata for regions dataset
-GET | /region/stats?field?filter | Returns statistics for regions dataset
+Method | Uri | Description | URL parameters |
+------------ | ------------- | ----------- |  ----------- | 
+GET | /regions  | Returns all regions available | none
+GET | /region/metadata | Returns metadata for regions dataset | none
+GET | /region/:region  | Returns data for a given region | ?filter
+GET | /region/:region/latest  | Returns latest data for that region | none
+GET | /region/:region/stats | Returns statistics for regions dataset | ?field, ?filter 
+GET | /region/:region/delta  | Returns daily increment of data | ?filter
+GET | /region/:region/delta/stats | Returns statistics about daily delta | ?field, ?filter
 
 Where:
 * **:param** is path variable
@@ -54,8 +57,8 @@ Of course they can be combined so, for instance, you can fetch a region by speci
 
 Parameter | Required |Descritpion | Possible values | 
 ------------ | ------------- | ------------- | ------------- |
-:name |  :heavy_check_mark: |region code |"eu", "middle-east"  |
-?field | :heavy_check_mark: |region code | use /metadata route to get all fieds for given dataset  | 
+:name |  :heavy_check_mark: |region code |"eu", "middle-east", all  |
+?field | :heavy_check_mark: |region code | confirmed, deaths, recovered, active  | 
 ?filter | :x: |region code | see [filters](#filters)  |  
 
 ### Filters <a id="filters"></a>
@@ -70,19 +73,24 @@ Less than |  lt |
 Equal |  eq |
 Beetween |  bt |
 
+A filter needs to have a following structure:
 
-Operator beetwen (bt) requires an array of exactly **two** elements 
+    { "field" : { "$operator": value } }
+
+Operator beetwen (bt) requires value an array of exactly **two** elements, in this case filter becomes:  
         
-    [initial value, final value] 
+    { "field" : { "$operator": [initial value, final value]  } }
+
+## Use case diagram
+
+![usecase](https://user-images.githubusercontent.com/19626498/97039709-21588500-156d-11eb-97be-582dbf415f3d.png)
 
 ## Structure <a id="structure"></a>
 
-The architecture of the project follows the principles of Clean Architecture <a id="ft-2-ref" href="#ft-2"><sup>[2]</sup></a>. 
+The architecture of the project follows the principles of Clean Architecture <a id="ft-2-ref" href="#ft-2"><sup>[2]</sup></a>. It coinsist of multiple layers, each of which rappresents different part of the application. The most inner layer rappresent the core of our application while outer layer are implementation details.
 
+![clean](https://user-images.githubusercontent.com/19626498/96997399-fef54600-1531-11eb-813b-2f1295b7d18e.png)
 
-### Clean Architecture
-
-It coinsist of multiple layers, each of which rappresents different part of the application. 
 
 ### Packages <a id="packages"></a>
 
@@ -92,35 +100,37 @@ The project coinsist of four modules (plus utilities):
  * Domain
  * Data
 
- ![packages](https://user-images.githubusercontent.com/19626498/96870420-2a642c00-1471-11eb-973e-54168f1411ca.png)
+![packages](https://user-images.githubusercontent.com/19626498/96997550-3e239700-1532-11eb-8664-3e6b6161caed.png)
+
+Since domain has no dependencies on outer layers, it's doesn't need to be modified if we change other component. It provides better testability and modularity, we can, for instance, swap one repository with another, since domain doesn't know anything about implementation details and does't care where it does get data from as long, as they implement exposed interfaces
 
 #### Core <a id="core"></a>
 
-This module contains the domain entities and use cases. It contains the business rules that are essential for our application and therefore rappresents core and most inner part of the architecture and for that reason it should have no dependency on onther components.
-In other words, i 
-
+This module contains the domain entities and use cases. It contains the business rules that are essential for our application and therefore rappresents core and most inner part of the architecture and for that reason it should have no dependency on other components. 
 
 
 According to Clean Architecture principles by Uncle Bob, domain should not have dependencies to frameworks and/or external libraries, but in out case (for now) it uses reactor and spring DI libraries.
 
 #### Data <a id="data"></a>
 
-This layer is reposponsible of retrievieng data from varius data sources (databases, remote api etc.). 
+This layer defines how data are stored and managed and retrieved from different data sources. It provides implementations of repositories interfaces defined inside domain.
+In this module are also defined different data sources rappresentaions which are responsible for storing and retriving data from given source.   
 
 #### Presentation <a id="presentation"></a>
 
-This layer can be considered front-end of our application, it accepts request and exposes data to the outside. 
+This layer can be considered front-end of our application, it accepts request and exposes data to the outside.
+It defines how data are presented, exposed to the end user, so it has to format data to desired format.
 
 ## Reactive approach <a id="reactive"></a>
 
 Reactive programming is a programming paradigm that promotes an asynchronous, non-blocking, event-driven approach to data processing.
 Reactive programming involves modeling data and events as observable data streams and implementing data processing routines to react to the changes in those streams.
 
-### Webflux
+![flow](https://user-images.githubusercontent.com/19626498/96936781-ffa4c280-14c6-11eb-9e72-0c9ff65a8f24.png)
 
-### Reactor
+When user request a resource, it's request starts inside presentation layer, and it's propagated to data layer. Data layer produces a data stream (Flux or Mono in Reactor) to which presentation layer subscribes, listening to it for values.
 
-## UML
+
 
 ## Tech 
 

@@ -25,7 +25,8 @@ public class RegionCache {
      *         stored in cache
      */
     public Flux<RegionEntity> getAll() { 
-        return Flux.fromIterable(regions);
+        return Flux.fromIterable(regions)
+                    .map(RegionEntity::new);
     }
 
     /**
@@ -38,7 +39,8 @@ public class RegionCache {
     public Flux<RegionEntity> get(String regionCode) {
         for (RegionEntity regionEntity : regions) {
             if (regionEntity.getRegionCode().equals(regionCode))
-                return Flux.just(regionEntity);
+                return Flux.just(regionEntity)
+                            .map(RegionEntity::new);
         }
         return Flux.empty();
     }

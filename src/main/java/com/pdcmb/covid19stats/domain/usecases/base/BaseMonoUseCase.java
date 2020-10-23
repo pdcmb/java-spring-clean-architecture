@@ -17,10 +17,10 @@ public abstract class BaseMonoUseCase<I extends IRequest, O extends IResponse> {
     /**
      * Creates the {@link Mono} used by execute method
      *
-     * @param params Parameters passed to and used by use case
+     * @param request Parameters passed to and used by use case
      * @return {@link Mono} which emits requested value
      */
-    protected abstract Mono<O> createPublisher(I params);
+    protected abstract Mono<O> createPublisher(I request);
 
     /**
      * Executes Use Case and returns {@link Mono} which emmitts a value.
@@ -28,8 +28,8 @@ public abstract class BaseMonoUseCase<I extends IRequest, O extends IResponse> {
      * @param params Parameter to be passed to Use Case
      * @return A Mono that emmits requested value
      */
-    public Mono<O> execute(I params){
-        return createPublisher(params)
+    public Mono<O> execute(I request){
+        return createPublisher(request)
                     .subscribeOn(Schedulers.elastic());
     }
 

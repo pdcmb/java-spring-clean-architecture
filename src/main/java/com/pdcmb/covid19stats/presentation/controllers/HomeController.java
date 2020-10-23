@@ -14,19 +14,12 @@ public class HomeController {
 
     @GetMapping({ "/", "/summary" })
     public RouteResponseModel getResources() {
-        return new RouteResponseModel("/region", HttpMethod.GET, "returns daily  data for given region/s");
+        return new RouteResponseModel("/region", HttpMethod.GET, "Data on Covid-19 for given region/s");
     }
 
     @GetMapping("*")
     public String fallbackRoute() {
         throw new ResourceNotFoundException("Resource not found, use /summary to get al resources available resources");
     }
-
-    @GetMapping("/metadata")
-    public String getMetadata() {
-        return null;
-    }
-
-
     
 }

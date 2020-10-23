@@ -1,8 +1,7 @@
 package com.pdcmb.covid19stats.domain.usecases;
 
-import com.pdcmb.covid19stats.domain.entities.Data;
-import com.pdcmb.covid19stats.domain.entities.Filter;
-import com.pdcmb.covid19stats.domain.repositories.IDataRepository;
+import com.pdcmb.covid19stats.domain.entities.Region;
+import com.pdcmb.covid19stats.domain.repositories.IRegionRepository;
 import com.pdcmb.covid19stats.domain.usecases.base.BaseFluxUseCase;
 import com.pdcmb.covid19stats.domain.usecases.base.IRequest;
 import com.pdcmb.covid19stats.domain.usecases.base.IResponse;
@@ -21,32 +20,27 @@ import reactor.core.publisher.Flux;
  */
 
 @Component
-public class GetData extends BaseFluxUseCase<GetData.Request, GetData.Response> {
+public class GetRegionData extends BaseFluxUseCase<GetRegionData.Request, GetRegionData.Response> {
 
-    private final IDataRepository dataRepository;
+    private final IRegionRepository regionRepository;
 
     @Autowired
-    public GetData(IDataRepository dataRepository) {
-        this.dataRepository = dataRepository;
+    public GetRegionData(IRegionRepository regionRepository) {
+        this.regionRepository = regionRepository;
     }
 
 
     @Override
     protected Flux<Response> createPublisher(Request request) {
 
-        Flux<Data> stream;
+        Flux<Region> stream;
 
         if(request.getRegionCode() == null){
-            stream = dataRepository.getAllData();
+            stream = regionRepository.getAllRegions();
         } else{
-            stream = dataRepository.getDataByRegion(request.getRegionCode());
+            stream = regionRepository.getRegionbyCode(request.getRegionCode());
         }   
-        if (request.getFilters() != null && request.getFilters().length != 0) {
-            stream = stream.filterWhen(data -> 
-                                Flux.fromArray(request.getFilters())
-                                    .all(filter -> filter.apply(data))
-                            );
-        }
+
         return stream.map(Response::new);
     }
 
@@ -55,16 +49,16 @@ public class GetData extends BaseFluxUseCase<GetData.Request, GetData.Response> 
      */
     public static class Response implements IResponse{
 
-        private Data data;
+        private Region region;
 
         public Response(){}
 
-        public Response(Data data){
-            this.data = data;
+        public Response(Region region){
+            this.region = region;
         }
 
-        public Data getRegion(){
-            return this.data;
+        public Region getRegion(){
+            return this.region;
         }
 
     }
@@ -76,23 +70,16 @@ public class GetData extends BaseFluxUseCase<GetData.Request, GetData.Response> 
     public static class Request implements IRequest{
 
         private String regionCode;
-        private Filter[] filters;
 
         public Request(){}
 
-        public Request(String regionCode, Filter... filters){
+        public Request(String regionCode){
             this.regionCode = regionCode;
-            this.filters = filters;
         }
 
         public String getRegionCode(){
             return this.regionCode;
         }
-
-        public Filter[] getFilters(){
-            return this.filters;
-        }
-
 
     }
 

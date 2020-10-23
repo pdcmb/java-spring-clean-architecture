@@ -85,7 +85,7 @@ public class FilterTest{
     @Test
     @DisplayName("Testing if exception are thrown correctly")
     void testExceptions(){
-        assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.GREATER, "field", 800); } );
+        assertThrows(NoSuchFieldError.class, () -> { new Filter(Operator.GREATER, "field", 800); } );
         assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.GREATER, "date", 500); } );
         assertThrows(FilterMalformedException.class, () -> { new Filter(Operator.BETWEEN, "active", 400); } );
         assertThrows(FilterMalformedException.class,

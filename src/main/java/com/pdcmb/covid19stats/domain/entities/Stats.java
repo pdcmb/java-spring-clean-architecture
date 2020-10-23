@@ -8,6 +8,7 @@ import java.util.Objects;
  */
 public class Stats {
 
+    private String field;
     private Integer average;
     private Integer min;
     private Integer max;
@@ -18,12 +19,21 @@ public class Stats {
     public Stats() {
     }
 
-    public Stats(Integer average, Integer min, Integer max, Integer sum, Integer count) {
+    public Stats(String field, Integer average, Integer min, Integer max, Integer sum, Integer count) {
+        this.field = field;
         this.average = average;
         this.min = min;
         this.max = max;
         this.sum = sum;
         this.count = count;
+    }
+
+    public String getField() {
+        return this.field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
     }
 
     public Integer getAverage() {
@@ -66,6 +76,11 @@ public class Stats {
         this.count = count;
     }
 
+    public Stats field(String field) {
+        this.field = field;
+        return this;
+    }
+
     public Stats average(Integer average) {
         this.average = average;
         return this;
@@ -99,24 +114,29 @@ public class Stats {
             return false;
         }
         Stats stats = (Stats) o;
-        return Objects.equals(average, stats.average) && Objects.equals(min, stats.min) && Objects.equals(max, stats.max) && Objects.equals(sum, stats.sum) && Objects.equals(count, stats.count);
+        return Objects.equals(field, stats.field) && Objects.equals(average, stats.average) && Objects.equals(min, stats.min) && Objects.equals(max, stats.max) && Objects.equals(sum, stats.sum) && Objects.equals(count, stats.count);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(average, min, max, sum, count);
+        return Objects.hash(field, average, min, max, sum, count);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " average='" + getAverage() + "'" +
+            " field='" + getField() + "'" +
+            ", average='" + getAverage() + "'" +
             ", min='" + getMin() + "'" +
             ", max='" + getMax() + "'" +
             ", sum='" + getSum() + "'" +
             ", count='" + getCount() + "'" +
             "}";
     }
+
+
+ 
+
 
     
 }

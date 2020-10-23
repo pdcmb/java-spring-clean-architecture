@@ -4,7 +4,6 @@ package com.pdcmb.covid19stats.data.repositories;
 import com.pdcmb.covid19stats.data.datasources.Covid19Api;
 import com.pdcmb.covid19stats.data.datasources.RegionCache;
 import com.pdcmb.covid19stats.data.entities.mappers.RegionEntityToRegion;
-import com.pdcmb.covid19stats.domain.entities.Region;
 import com.pdcmb.covid19stats.domain.entities.Data;
 import com.pdcmb.covid19stats.domain.repositories.IDataRepository;
 
