@@ -38,7 +38,7 @@ public class Covid19Api {
      * 
      * 
      * @param codes Region codes of regions to be retrevied
-     * @return A {@link Flux} that emmits requsted region {@link RegionEntity entities}
+     * @return A {@link Flux} that emits requsted region {@link RegionEntity entities}
      */
 	public Flux<RegionEntity> getRegions(String... codes) {
         List<String> regionCodes;

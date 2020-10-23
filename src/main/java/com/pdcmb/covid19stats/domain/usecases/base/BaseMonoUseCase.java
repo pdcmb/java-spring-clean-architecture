@@ -25,8 +25,8 @@ public abstract class BaseMonoUseCase<I extends IRequest, O extends IResponse> {
     /**
      * Executes Use Case and returns {@link Mono} which emmitts a value.
      *
-     * @param params Parameter to be passed to Use Case
-     * @return A Mono that emmits requested value
+     * @param request Parameter to be passed to Use Case
+     * @return A Mono that emits requested value
      */
     public Mono<O> execute(I request){
         return createPublisher(request)

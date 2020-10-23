@@ -15,9 +15,9 @@ public interface BaseUseCase<I extends IRequest, O extends IResponse>{
     /**
      * Executes Use Case and returns value
      *
-     * @param params Parameter to be passed to Use Case
+     * @param request Parameter to be passed to Use Case
      * @return Value retuned by Use Case
      */
-    O execute(I params);
+    O execute(I request);
 
 }

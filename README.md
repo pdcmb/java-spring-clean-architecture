@@ -19,6 +19,9 @@
 
 This simple java application allows to retrevie data on Coronavirus in different regions of the world. It provides simple REST(ish) <a id="ft-1-ref" href="#ft-1"><sup>[1]</sup></a> api interface. Data are retrieved from [Covid19api] and are aggregated by regions.
 
+
+**Note**: On start the application makes an initial request to [Covid19api] to get all available data, since they need to be transformed and requests to get data for every single country in a region need to be delyed (otherwise they will be blocked), it might take some time (few minutes). Data then are stored in memory so all subsequent request should be fast, however if data is not found in cache, application could make another long request to fetch all data.
+
 ## Usage <a id="usage"></a>
 
 To install simply clone this repository and than build it using gradle
@@ -85,12 +88,19 @@ Operator beetwen (bt) requires value an array of exactly **two** elements, in th
 
 ![usecase](https://user-images.githubusercontent.com/19626498/97039709-21588500-156d-11eb-97be-582dbf415f3d.png)
 
+## Sequence diagram
+
+Basic request has following diagram
+
+![sequence](https://user-images.githubusercontent.com/19626498/97049755-82d42000-157c-11eb-8bd6-924b67e0ea0f.png)
+
 ## Structure <a id="structure"></a>
 
-The architecture of the project follows the principles of Clean Architecture <a id="ft-2-ref" href="#ft-2"><sup>[2]</sup></a>. It coinsist of multiple layers, each of which rappresents different part of the application. The most inner layer rappresent the core of our application while outer layer are implementation details.
+The architecture of the project follows the principles of Clean Architecture <a id="ft-2-ref" href="#ft-2"><sup>[2]</sup></a>. It coinsist of multiple layers, each of which rappresents different part of the application.
 
 ![clean](https://user-images.githubusercontent.com/19626498/96997399-fef54600-1531-11eb-813b-2f1295b7d18e.png)
 
+The most inner layer rappresent the core of our application, it tells us **what** does the application do while outer layers are implementation details, they tell **how** it is done. 
 
 ### Packages <a id="packages"></a>
 
@@ -114,7 +124,7 @@ According to Clean Architecture principles by Uncle Bob, domain should not have 
 #### Data <a id="data"></a>
 
 This layer defines how data are stored and managed and retrieved from different data sources. It provides implementations of repositories interfaces defined inside domain.
-In this module are also defined different data sources rappresentaions which are responsible for storing and retriving data from given source.   
+In this module are also defined different data sources rappresentaions which are responsible for storing and retriving data from given source.  
 
 #### Presentation <a id="presentation"></a>
 

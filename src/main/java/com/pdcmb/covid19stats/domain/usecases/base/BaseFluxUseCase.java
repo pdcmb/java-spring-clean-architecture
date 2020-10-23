@@ -27,7 +27,7 @@ public abstract class BaseFluxUseCase<I, O> {
     /**
      * Executes Use Case and returns {@link Flux} which emitts values
      *
-     * @param params Parameter to be passed to Use Case
+     * @param request Parameter to be passed to Use Case
      * @return {@link Flux} which emits requested values
      */
     public Flux<O> execute(I request){
