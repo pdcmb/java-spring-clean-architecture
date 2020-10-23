@@ -26,6 +26,8 @@ This simple java application allows to retrevie data on Coronavirus in different
 
 To install simply clone this repository and than build it using gradle
 
+Documentation (Partial) can be found at: https://pdcmb.github.io/java-spring-clean-architecture/
+
 ### Routes <a id="routes"></a>
 
 Possible routes are:
