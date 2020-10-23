@@ -12,7 +12,7 @@
     2. [Packages](#packages)
         1. [Core](#core)
         2. [Data](#data)
-        3. [Filters](#presentation)
+        3. [Presentation](#presentation)
 2. [Reactive approach](#reactive)
 
 ## Description <a id="description"></a>
